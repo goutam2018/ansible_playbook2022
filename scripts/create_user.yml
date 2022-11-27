@@ -1,0 +1,13 @@
+---
+- name: To create multiple users
+  hosts: all
+  become: true
+  tasks:
+  - name: to add users
+    user:
+      name: goutam  
+      state: present
+   
+   
+
+

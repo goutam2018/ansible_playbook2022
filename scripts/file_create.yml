@@ -1,0 +1,11 @@
+---
+- name: To create file or directory
+  hosts: all
+  become: true
+  tasks:
+  - name: Create DIR / FILE
+    file:
+       path: /home/ansadmin/file1
+       state: touch
+
+

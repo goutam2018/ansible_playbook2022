@@ -1,0 +1,13 @@
+---
+- name: to unsintall httpd
+  hosts: all
+  become: true
+  tasks: 
+  - name: httpd service
+    yum:
+      name: httpd
+      state: installed
+  - name: service
+    service:
+      name: httpd
+      state: started

@@ -1,0 +1,13 @@
+---
+- name: To Copy file/dir
+  hosts: all
+  become: true
+  gather_facts: true
+  tasks: 
+  - name: to copy file/dir
+    copy:
+      src: /opt/file1.txt
+      dest: /home/ansadmin/
+      mode: 060
+      owner: arnav
+  

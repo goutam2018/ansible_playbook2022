@@ -1,0 +1,17 @@
+---
+- name: To start httpd service with handlers
+  hosts: all 
+  become: true
+  gather_facts: true
+  tasks: 
+  - name: to install httpd service
+    yum: 
+      name:  httpd 
+      state: installed
+    notify: start httpd 
+
+  handlers:
+  - name:  start httpd 
+    service: 
+      name: httpd
+      state: started
