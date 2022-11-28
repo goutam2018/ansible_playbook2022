@@ -1,0 +1,10 @@
+---
+- name: To create user with vars
+  hosts: all
+  become: true
+  vars_files: 
+     - user.yml
+  tasks:
+  - name: create user mithu
+    user: 
+      name: "{{ user  }}"
