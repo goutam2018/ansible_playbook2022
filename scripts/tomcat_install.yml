@@ -1,0 +1,40 @@
+---
+- name: To install tomcat server on RHEL and Ubuntu OS
+  hosts: all
+  become: true
+  gather_facts: true
+  tasks:
+  - name: install java
+    yum: 
+      name: java
+      state: installed
+    when: ansible_os_family == "RedHat"
+
+  - name: install java on ubuntu
+    apt: 
+      name: default-jdk
+      state: present
+    when: ansible_os_family == "Debian"
+
+  - name: dowload tomcat pkg
+    get_url:
+      url: https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.84/bin/apache-tomcat-8.5.84.tar.gz
+      dest: /opt
+      
+  - name: untar apache packages
+    unarchive: 
+      src: /opt/apache-tomcat-8.5.84.tar.gz
+      dest: /opt
+      remote_src: yes
+
+  - name: add execution permission on startup.sh
+    file: 
+      path: /opt/apache-tomcat-8.5.84/bin
+      mode: 0777
+      
+   
+  - name: start tomcat service
+    shell: nohup ./startup.sh
+    args: 
+      chdir: /opt/apache-tomcat-8.5.84/bin
+     
