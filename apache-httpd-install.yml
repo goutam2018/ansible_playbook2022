@@ -1,0 +1,35 @@
+---
+
+- name:  install httpd & apache service on RHEL & Debian
+  hosts: all
+  become: true
+  tasks: 
+  - name: install httpd service
+    yum: 
+      name: httpd
+      state:  installed
+    when: ansible_os_family == "RedHat"
+    notify: start apache
+
+  - name: install apache service
+    apt:
+      name: apache2
+      state: present
+    when: ansible_os_family == "Debian"
+    notify: start apache2
+
+  handlers:
+  - name: start apache
+    service: 
+      name: httpd
+      state: started
+    when: ansible_os_family == "RedHat"
+
+
+
+  - name: start apache2
+    service:
+      name: apache2
+      state: started
+    when: ansible_os_family == "Debian"
+   
